@@ -11,6 +11,7 @@ gem 'nokogiri'
 gem 'mechanize'
 gem 'highline'
 gem 'ezcrypto'
+gem 'annotate'
 
 # Use unicorn as the web server
 # gem 'unicorn'

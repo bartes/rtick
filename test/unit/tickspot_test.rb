@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: tickspots
+#
+#  id         :integer         not null, primary key
+#  login      :string(255)
+#  password   :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'test_helper'
 
 class TickspotTest < ActiveSupport::TestCase

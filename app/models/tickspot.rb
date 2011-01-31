@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: tickspots
+#
+#  id         :integer         not null, primary key
+#  login      :string(255)
+#  password   :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require "mechanize"
 require "net/http"
 
@@ -10,9 +21,9 @@ class Tickspot < ActiveRecord::Base
 
   def sign_in
     agent = Mechanize.new
-    page = agent.get('ogin')
+    page = agent.get("https://#{self.class::DOMAIN}/login")
 
-    form = page.forms.detect{|f| f.action == "https://#{self.class::DOMAIN}/login"}
+    form = page.forms.detect{|f| f.action == "/login"}
     raise "Form /login not found!" unless form
     form.user_login = login
     form.user_password = password
@@ -43,7 +54,7 @@ class Tickspot < ActiveRecord::Base
   end
 
 
-  def update_tickspot(data)
+  def update(data)
     txt = api_request('projects', :open => true)
     #doc = Nokogiri::XML.parse(txt)
     #clients = parse_tickspot_clients(doc)
@@ -53,7 +64,7 @@ class Tickspot < ActiveRecord::Base
 
     api_request( 'create_entry', :task_id => task_id, :hours => data[:time], :date => data[:date], :notes => data[:text])
   end
-   
+
   def parse_tickspot_clients(doc)
     clients = {}
     doc.css('project').each do |project_elem|
@@ -69,6 +80,6 @@ class Tickspot < ActiveRecord::Base
   end
 
   def task_id
-    317764.to_s
-  end 
+    317764.to_s #hardcoded
+  end
 end

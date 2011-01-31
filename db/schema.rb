@@ -10,7 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101201200653) do
+ActiveRecord::Schema.define(:version => 20110131215423) do
+
+  create_table "redmines", :force => true do |t|
+    t.string   "login"
+    t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rubytimes", :force => true do |t|
     t.string   "login"
