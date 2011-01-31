@@ -1,11 +1,12 @@
 # == Schema Information
 #
-# Table name: rubytimes
+# Table name: redmines
 #
 #  id         :integer         not null, primary key
 #  login      :string(255)
 #  password   :string(255)
-#  project_id :integer
+#  job        :string(255)
+#  project    :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #

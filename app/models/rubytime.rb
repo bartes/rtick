@@ -5,6 +5,7 @@
 #  id         :integer         not null, primary key
 #  login      :string(255)
 #  password   :string(255)
+#  project_id :integer
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -13,8 +14,7 @@ require 'mechanize'
 
 class Rubytime < ActiveRecord::Base
 
-  validates :password, :presence => true
-  validates :login, :presence => true
+  validates :password, :login, :presence => true
 
   def self.path
     'http://rt.llp.pl/'
@@ -32,12 +32,17 @@ class Rubytime < ActiveRecord::Base
     agent
   end
 
-  def self.get_for_month(agent, mon, year)
+  def project_id
+    super || 79 #hardcoded
+  end
+
+  def get_for_month(agent, mon, year)
     timer = Time.zone.local(year, mon)
 
     page = agent.get(:url => File.join(self.class.path, 'activities'), :params => {
       :"search_criteria[date_from]" => format_date(timer.beginning_of_month),
-      :"search_criteria[date_to]"   => format_date(timer.end_of_month)
+      :"search_criteria[date_to]"   => format_date(timer.end_of_month),
+      :"search_criteria[project_id][]" => project_id
     })
 
     parser = page.parser
@@ -59,7 +64,7 @@ class Rubytime < ActiveRecord::Base
     result
   end
 
-  def self.format_date(date)
+  def format_date(date)
     date.to_date.to_s(:db).split("-").reverse.join("-")
   end
 end

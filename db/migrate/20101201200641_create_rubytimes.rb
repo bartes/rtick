@@ -3,6 +3,7 @@ class CreateRubytimes < ActiveRecord::Migration
     create_table :rubytimes do |t|
       t.string :login
       t.string :password
+      t.integer :project_id
       t.timestamps
     end
   end

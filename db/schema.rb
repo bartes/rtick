@@ -15,6 +15,8 @@ ActiveRecord::Schema.define(:version => 20110131215423) do
   create_table "redmines", :force => true do |t|
     t.string   "login"
     t.string   "password"
+    t.string   "job"
+    t.string   "project"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -22,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20110131215423) do
   create_table "rubytimes", :force => true do |t|
     t.string   "login"
     t.string   "password"
+    t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

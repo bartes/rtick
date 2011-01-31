@@ -17,11 +17,13 @@ class Tickspot < ActiveRecord::Base
   validates :password, :presence => true
   validates :login, :presence => true
 
-  DOMAIN = "truvolabs.tickspot.com"
+  def self.path
+    "https://truvolabs.tickspot.com"
+  end
 
   def sign_in
     agent = Mechanize.new
-    page = agent.get("https://#{self.class::DOMAIN}/login")
+    page = agent.get("#{self.class.path}/login")
 
     form = page.forms.detect{|f| f.action == "/login"}
     raise "Form /login not found!" unless form
@@ -44,7 +46,7 @@ class Tickspot < ActiveRecord::Base
     }.merge(params)
 
     result = nil
-    Net::HTTP.new(self.class::DOMAIN).start {|http|
+    Net::HTTP.new(self.class.path).start {|http|
       response = http.request(request)
       result = response.body
       code = response.code.to_i
