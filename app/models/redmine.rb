@@ -21,10 +21,6 @@ class Redmine < ActiveRecord::Base
     "https://dev.truvolabs.com"
   end
 
-  def project
-    "sayso"
-  end
-
   def sign_in
     agent = Mechanize.new
     page = agent.get(File.join(self.class.path, 'login'))
