@@ -56,7 +56,7 @@ class Tickspot < ActiveRecord::Base
   end
 
 
-  def update(data)
+  def put(data)
     txt = api_request('projects', :open => true)
     #doc = Nokogiri::XML.parse(txt)
     #clients = parse_tickspot_clients(doc)

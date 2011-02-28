@@ -32,7 +32,7 @@ class Redmine < ActiveRecord::Base
     agent
   end
 
-  def update(agent, data)
+  def put(agent, data)
     page = agent.get("#{self.class.path}/projects/#{project}/time_entries/new")
     form = page.forms.detect{|f| f.action == "/projects/#{project}/timelog/edit"}
     raise "Form not found!" unless form
