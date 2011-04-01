@@ -34,7 +34,7 @@ class Redmine < ActiveRecord::Base
 
   def put(agent, data)
     page = agent.get("#{self.class.path}/projects/#{project}/time_entries/new")
-    form = page.forms.detect{|f| f.action == "/projects/#{project}/timelog/edit"}
+    form = page.forms.detect{|f| f.action == "/projects/#{project}/timelog/edit" || f.action == "/projects/#{project}/timelog/create" }
     raise "Form not found!" unless form
     form["time_entry[activity_id"] = activity_id
     date = data[:date]
